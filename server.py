@@ -40,8 +40,10 @@ def fizz_buzz() -> str:
 
 @app.route('/api/most-frequent')
 def most_frequent():
-	most_frequent_endpoint = max(hit_counts,key=hit_counts.get)
-	return jsonify({'most_frequent_endpoint': most_frequent_endpoint,'hit_count': hit_counts[most_frequent_endpoint]}), 200
+	if hit_counts:
+		most_frequent_endpoint = max(hit_counts,key=hit_counts.get)
+		return jsonify({'most_frequent_endpoint': most_frequent_endpoint,'hit_count': hit_counts[most_frequent_endpoint]}), 200
+	return jsonify({"status":False,"message":"No any api requested"})
 
 
 
